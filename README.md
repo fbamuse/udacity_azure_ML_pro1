@@ -18,7 +18,7 @@ Logistic regression AUC is 0.92. The calculation time was 10 minutes, the AutoML
 ## Scikit-learn Pipeline
 **Explain the pipeline architecture, including data, hyperparameter tuning, and classification algorithm.**  
 
-![](2020-12-25-19-09-36.png)
+![](2020-12-25-19-09-36.png)  
 The objective variable y is set to continue or not to keep the time deposit, and other data is used as the explanatory variable. The explanatory variables are subjected to One Hot encoding according to the item and divided into training data and test data. The esthetic meter employs logistic regression.
 Of the parameters of logistic regression, two parameters, regularization "C" and maximum number of searches for optimization search max_iter, are tuned with HyperDride. Regularization is a method of applying a penalty to suppress overfitting, and C is the strength of regularization. The smaller the value, the stronger the regularization (it becomes difficult to make a complicated model)
 
@@ -41,53 +41,8 @@ The adopted policy setting starts at evaluation interval 5 and the early termina
 
 Multiple models contain eight classifiers such as parameter-tuned xgboostclassifier and lightgbmclassifier, which are output by load averaging of these outputs. The weight is expressed as follows.
 
-{'estimators': ['71', '52', '67', '69', '0', '21', '84', '47'],
- 'weights': [0.21428571428571427,
-             0.07142857142857142,
-             0.07142857142857142,
-             0.2857142857142857,
-             0.14285714285714285,
-             0.07142857142857142,
-             0.07142857142857142,
-             0.07142857142857142]}
+![](2020-12-25-21-37-28.png)
 
-71 - standardscalerwrapper
-{'class_name': 'StandardScaler',
- 'copy': True,
- 'module_name': 'sklearn.preprocessing._data',
- 'with_mean': False,
- 'with_std': False}
-
-71 - xgboostclassifier
-{'base_score': 0.5,
- 'booster': 'gbtree',
- 'colsample_bylevel': 1,
- 'colsample_bynode': 1,
- 'colsample_bytree': 0.9,
- 'eta': 0.05,
- 'gamma': 0.01,
- 'grow_policy': 'lossguide',
- 'learning_rate': 0.1,
- 'max_bin': 1023,
- 'max_delta_step': 0,
- 'max_depth': 0,
- 'max_leaves': 15,
- 'min_child_weight': 1,
- 'missing': nan,
- 'n_estimators': 100,
- 'n_jobs': 1,
- 'nthread': None,
- 'objective': 'reg:logistic',
- 'random_state': 0,
- 'reg_alpha': 1.1458333333333335,
- 'reg_lambda': 0,
- 'scale_pos_weight': 1,
- 'seed': None,
- 'silent': None,
- 'subsample': 0.8,
- 'tree_method': 'hist',
- 'verbose': -10,
- 'verbosity': 0}
 
 
 
@@ -99,18 +54,18 @@ AutoML tries multiple patterns of combinations of data processing methods and cl
 
 ## Future work
 **What are some areas of improvement for future experiments? Why might these improvements help the model?**  
-To avoid AutoML overfits, consider the following:
-· Use more training data and eliminate statistical bias
-・ Prevent target leakage
-・ Reduction of functions used
+For AutoML to avoid overfits, consider the following 
+- Use more training data and eliminate statistical bias
+- Prevent target leakage
+- Reduction of functions used
 (Data bias is improved by AutoML weight column)
 
-For custom scikit-learn pipeline, to avoid overfitting
-Use more training data and eliminate statistical bias
-Prevent target leakage
-Reduction of functions used
-Cross-validation
-It will be considered.
+For custom scikit-learn pipeline, to avoid overfitting It will be considered.
+- Use more training data and eliminate statistical bias
+- Prevent target leakage
+- Reduction of functions used
+- Cross-validation  
+
 In addition, try hyperparameter tune with classifiers other than logistic regression such as Xgboost and SVM. It also requires upsampling to eliminate imbalanced data.
 
 
